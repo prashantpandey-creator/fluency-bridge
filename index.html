@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fluency Bridge — Master English, Your Way</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ========== NAVIGATION ========== -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#" class="nav__logo">
+      <span class="nav__logo-icon">🌉</span>
+      Fluency<span class="nav__logo-bold">Bridge</span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="#beginners">Beginners</a></li>
+      <li><a href="#young">Young Learners</a></li>
+      <li><a href="#adults">Adults</a></li>
+      <li><a href="#intermediate">Intermediate</a></li>
+    </ul>
+    <button class="nav__cta" onclick="scrollToWaitlist()">Join Waitlist</button>
+    <button class="nav__mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<header class="hero">
+  <div class="hero__bg">
+    <div class="hero__orb hero__orb--1"></div>
+    <div class="hero__orb hero__orb--2"></div>
+    <div class="hero__orb hero__orb--3"></div>
+  </div>
+  <div class="hero__content">
+    <div class="hero__badge">
+      <span class="hero__badge-dot"></span>
+      Built on research with 100+ learners &amp; AI analysis
+    </div>
+    <h1 class="hero__title">
+      Every learner hits a wall.<br>
+      <span class="hero__title-accent">We built the door.</span>
+    </h1>
+    <p class="hero__subtitle">
+      Fluency Bridge adapts to <em>your</em> learning stage — whether you're frozen by fear
+      of speaking, stuck on the intermediate plateau, or helping a child fall in love with English.
+    </p>
+    <div class="hero__actions">
+      <button class="btn btn--primary" onclick="scrollToWaitlist()">Find your path</button>
+      <button class="btn btn--ghost" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">
+        Explore the research ↓
+      </button>
+    </div>
+    <div class="hero__stats">
+      <div class="hero__stat">
+        <span class="hero__stat-number">4</span>
+        <span class="hero__stat-label">Learner profiles</span>
+      </div>
+      <div class="hero__stat">
+        <span class="hero__stat-number">17</span>
+        <span class="hero__stat-label">Pain points mapped</span>
+      </div>
+      <div class="hero__stat">
+        <span class="hero__stat-number">1</span>
+        <span class="hero__stat-label">Unified method</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ========== INTRO / METHODOLOGY ========== -->
+<section class="intro" id="intro">
+  <div class="container">
+    <div class="intro__grid">
+      <div class="intro__text">
+        <h2 class="section-title">The learner-first approach</h2>
+        <p>
+          Most English courses treat everyone the same. We talked to real learners and an AI
+          research partner to map exactly where each profile struggles — then designed
+          targeted pathways that turn those weak spots into strengths.
+        </p>
+        <p>
+          Below are the four learner categories we discovered. Each one demanded a
+          completely different product experience.
+        </p>
+      </div>
+      <div class="intro__visual">
+        <div class="intro__venn">
+          <div class="intro__venn-circle intro__venn-circle--1"><span>Absolute<br>Beginners</span></div>
+          <div class="intro__venn-circle intro__venn-circle--2"><span>Young<br>Learners</span></div>
+          <div class="intro__venn-circle intro__venn-circle--3"><span>Adult<br>Beginners</span></div>
+          <div class="intro__venn-circle intro__venn-circle--4"><span>Intermediate<br>Plateau</span></div>
+          <div class="intro__venn-center">Fluency<br>Bridge</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CATEGORY 1: ABSOLUTE BEGINNERS ========== -->
+<section class="category category--beginners" id="beginners">
+  <div class="container">
+    <div class="category__header">
+      <span class="category__number">01</span>
+      <h2 class="category__title">Absolute Beginners</h2>
+      <p class="category__subtitle">Starting from zero — complete cognitive overload</p>
+    </div>
+    <div class="category__grid">
+      <div class="category__visual">
+        <div class="category__illustration category__illustration--beginners">
+          <div class="illust-card illust-card--phonetics">
+            <span class="illust-card__emoji">🔤</span>
+            <span class="illust-card__label">knife → /naɪf/</span>
+            <span class="illust-card__note">Silent "k"</span>
+          </div>
+          <div class="illust-card illust-card--wordorder">
+            <span class="illust-card__emoji">🔀</span>
+            <span class="illust-card__label">I like very much pizza ❌</span>
+            <span class="illust-card__note">SVO Structure</span>
+          </div>
+          <div class="illust-card illust-card--fear">
+            <span class="illust-card__emoji">😰</span>
+            <span class="illust-card__label">Fear of Speaking</span>
+            <span class="illust-card__note">Paralysis</span>
+          </div>
+          <div class="illust-card illust-card--vocab">
+            <span class="illust-card__emoji">🧠</span>
+            <span class="illust-card__label">Word → Forgotten</span>
+            <span class="illust-card__note">No application</span>
+          </div>
+        </div>
+      </div>
+      <div class="category__pain-points">
+        <h3 class="category__pain-title">What they struggle with</h3>
+        <ul class="pain-list">
+          <li class="pain-list__item">
+            <strong>Phonetics vs. Spelling</strong>
+            <p>English lacks a consistent "one letter, one sound" rule. Silent letters (<em>knife, doubt</em>) and multiple sounds for one letter combination (<em>though, through, thought</em>) create chaos.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> Color-coded phonics maps that show sound patterns visually — no abstract rules, just patterns you can see.</span>
+            </div>
+          </li>
+          <li class="pain-list__item">
+            <strong>Word Order Confusion</strong>
+            <p>Translating word-for-word from their native language produces errors. English strictly follows Subject-Verb-Object (SVO).</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> Drag-and-drop sentence builder that physically snaps words into SVO slots — muscle memory for grammar.</span>
+            </div>
+          </li>
+          <li class="pain-list__item">
+            <strong>The Fear of Speaking</strong>
+            <p>Intense anxiety about making mistakes frequently paralyzes beginners, preventing oral practice entirely.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> Private AI conversation partner with zero judgment — practice speaking in a safe space before talking to humans.</span>
+            </div>
+          </li>
+          <li class="pain-list__item">
+            <strong>Vocabulary Retention</strong>
+            <p>Building core vocabulary requires heavy memorization. Without immediate application, new words vanish within days.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> Spaced-repetition mini-stories that use each new word in 3 different contexts within 24 hours.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CATEGORY 2: YOUNG LEARNERS ========== -->
+<section class="category category--young" id="young">
+  <div class="container">
+    <div class="category__header">
+      <span class="category__number">02</span>
+      <h2 class="category__title">Young Learners</h2>
+      <p class="category__subtitle">Children learn through play — structure kills their curiosity</p>
+    </div>
+    <div class="category__grid category__grid--reverse">
+      <div class="category__pain-points">
+        <h3 class="category__pain-title">What they struggle with</h3>
+        <ul class="pain-list">
+          <li class="pain-list__item">
+            <strong>Short Attention Spans</strong>
+            <p>Children lose focus quickly. Traditional lecture-style lessons and repetitive grammar drills fail within minutes.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> 5-minute "micro-quests" — bite-sized adventures that teach one concept, then reward with a story beat.</span>
+            </div>
+          </li>
+          <li class="pain-list__item">
+            <strong>Lack of Internal Motivation</strong>
+            <p>Kids rarely choose to study English for career or academic reasons. They only engage if it feels like a game or a story.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> Narrative-driven world where each grammar lesson unlocks the next chapter — learning is the side effect of play.</span>
+            </div>
+          </li>
+          <li class="pain-list__item">
+            <strong>Abstract Concepts</strong>
+            <p>Terms like "past participle" or "adverb" mean nothing to a 7-year-old. They need concrete examples and visual aids.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> Character-based grammar — "The -ed Dragon" adds /t/ or /d/ to action words. Zero terminology, 100% understanding.</span>
+            </div>
+          </li>
+          <li class="pain-list__item">
+            <strong>Linguistic Interference</strong>
+            <p>Children mix native-language rules with English, inventing non-existent words or sentence structures.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> Gentle correction through character dialogue — the in-world guide "notices" the mix-up and models the right form.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="category__visual">
+        <div class="category__illustration category__illustration--young">
+          <div class="young-scene">
+            <div class="young-scene__character">🧒</div>
+            <div class="young-scene__path">
+              <div class="young-scene__node young-scene__node--1">🔤<span>Phonics Quest</span></div>
+              <div class="young-scene__node young-scene__node--2">📖<span>Story Unlock</span></div>
+              <div class="young-scene__node young-scene__node--3">🎮<span>Boss: Grammar</span></div>
+              <div class="young-scene__node young-scene__node--4">🏆<span>Badge Earned</span></div>
+            </div>
+            <div class="young-scene__sparkles">✨ ✨ ✨</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CATEGORY 3: ADULT BEGINNERS ========== -->
+<section class="category category--adults" id="adults">
+  <div class="container">
+    <div class="category__header">
+      <span class="category__number">03</span>
+      <h2 class="category__title">Adult Beginners</h2>
+      <p class="category__subtitle">Strong logic, heavy baggage — the mind fights itself</p>
+    </div>
+    <div class="category__grid">
+      <div class="category__visual">
+        <div class="category__illustration category__illustration--adults">
+          <div class="adult-diagram">
+            <div class="adult-diagram__center">🧑‍💼<br>Adult<br>Learner</div>
+            <div class="adult-diagram__ring">
+              <span class="adult-diagram__item adult-diagram__item--1">Overthinking</span>
+              <span class="adult-diagram__item adult-diagram__item--2">Pronunciation rigidity</span>
+              <span class="adult-diagram__item adult-diagram__item--3">High expectations</span>
+              <span class="adult-diagram__item adult-diagram__item--4">Time scarcity</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="category__pain-points">
+        <h3 class="category__pain-title">What they struggle with</h3>
+        <ul class="pain-list">
+          <li class="pain-list__item">
+            <strong>Overthinking Grammar</strong>
+            <p>Adults try to analyze <em>why</em> a rule exists instead of accepting and practicing it. This analytical approach slows fluency to a crawl.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> "Pattern-first" lessons — expose the structure 5 times before naming it. Your brain gets it before your inner critic does.</span>
+            </div>
+          </li>
+          <li class="pain-list__item">
+            <strong>Pronunciation Rigidity</strong>
+            <p>Speech muscles are locked into native-language patterns. Sounds like /θ/ (think) and /ð/ (this) feel physically impossible.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> Visual tongue-placement guides with real-time speech recognition feedback — see where your tongue should be.</span>
+            </div>
+          </li>
+          <li class="pain-list__item">
+            <strong>High Expectations</strong>
+            <p>Adults expect rapid results. When they can't express complex thoughts with limited vocabulary, frustration and demotivation follow.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> "Power Phrases" — 20 high-leverage sentence templates that let you express 200+ ideas from day one.</span>
+            </div>
+          </li>
+          <li class="pain-list__item">
+            <strong>Time Constraints</strong>
+            <p>Work, family, and responsibilities make consistent study difficult. Lack of routine often leads to dropping out entirely.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> 8-minute daily sessions — designed for coffee breaks. Streak tracking with forgiveness (2 skip-days per month built in).</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CATEGORY 4: INTERMEDIATE LEARNERS ========== -->
+<section class="category category--intermediate" id="intermediate">
+  <div class="container">
+    <div class="category__header">
+      <span class="category__number">04</span>
+      <h2 class="category__title">Intermediate Learners</h2>
+      <p class="category__subtitle">The plateau — good enough to communicate, stuck enough to quit</p>
+    </div>
+    <div class="category__grid category__grid--reverse">
+      <div class="category__pain-points">
+        <h3 class="category__pain-title">What they struggle with</h3>
+        <ul class="pain-list">
+          <li class="pain-list__item">
+            <strong>The "Good Enough" Trap</strong>
+            <p>Because they can understand and be understood, learners stop pushing. They settle for basic vocabulary and repetitive structures.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> "Precision Challenges" — weekly tasks that require nuanced expression. You <em>can't</em> complete them with basic English.</span>
+            </div>
+          </li>
+          <li class="pain-list__item">
+            <strong>Passive vs. Active Vocabulary Gap</strong>
+            <p>They understand complex words when reading (passive) but never use them when speaking or writing (active). The gap widens silently.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> "Activation Drills" — take 5 words you know passively and force them into a real conversation within 48 hours.</span>
+            </div>
+          </li>
+          <li class="pain-list__item">
+            <strong>Grammar Nuances</strong>
+            <p>Simple tenses are fine, but conditionals, past modals, and phrasal verbs become major roadblocks at this level.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> Scenario-based grammar — learn "I should have called" through a story about a missed opportunity, not a conjugation table.</span>
+            </div>
+          </li>
+          <li class="pain-list__item">
+            <strong>Losing the Narrative</strong>
+            <p>Native-speed connected speech and idiomatic expressions create comprehension gaps. They catch every 3rd word and guess the rest.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> "Slow-Fast-Slow" audio — hear native speech at 70% speed, then 100%, then 70% again. Your ear calibrates naturally.</span>
+            </div>
+          </li>
+          <li class="pain-list__item">
+            <strong>Lack of Precision</strong>
+            <p>They can describe a concept but lack the exact vocabulary for subtle emotional nuances or professional arguments.</p>
+            <div class="pain-list__solution">
+              <span class="pain-list__solution-icon">💡</span>
+              <span><strong>Our fix:</strong> Synonym Ladders — take "happy" → "content" → "pleased" → "delighted" → "ecstatic." Know exactly which rung fits the context.</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="category__visual">
+        <div class="category__illustration category__illustration--intermediate">
+          <div class="plateau-visual">
+            <div class="plateau-visual__graph">
+              <div class="plateau-visual__bar plateau-visual__bar--1"><span>A1</span></div>
+              <div class="plateau-visual__bar plateau-visual__bar--2"><span>A2</span></div>
+              <div class="plateau-visual__bar plateau-visual__bar--3"><span>B1</span></div>
+              <div class="plateau-visual__bar plateau-visual__bar--4 plateau-visual__bar--plateau">
+                <span>B2</span>
+                <span class="plateau-visual__label">THE PLATEAU</span>
+              </div>
+              <div class="plateau-visual__bar plateau-visual__bar--5 plateau-visual__bar--breakthrough">
+                <span>C1</span>
+                <span class="plateau-visual__arrow">🚀 Fluency Bridge</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== COMPARISON TABLE ========== -->
+<section class="comparison" id="comparison">
+  <div class="container">
+    <h2 class="section-title section-title--center">One method, four paths</h2>
+    <p class="section-subtitle">Each learner profile gets a unique experience — same platform, different journey.</p>
+    <div class="comparison__table-wrap">
+      <table class="comparison__table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="comparison__col-beginners">Absolute Beginners</th>
+            <th class="comparison__col-young">Young Learners</th>
+            <th class="comparison__col-adults">Adult Beginners</th>
+            <th class="comparison__col-intermediate">Intermediate</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Session length</strong></td>
+            <td>15 min</td>
+            <td>5 min</td>
+            <td>8 min</td>
+            <td>20 min</td>
+          </tr>
+          <tr>
+            <td><strong>Core mechanic</strong></td>
+            <td>Sentence builder</td>
+            <td>Story quests</td>
+            <td>Pattern drills</td>
+            <td>Precision challenges</td>
+          </tr>
+          <tr>
+            <td><strong>Feedback style</strong></td>
+            <td>Gentle + visual</td>
+            <td>Character dialogue</td>
+            <td>Data-driven</td>
+            <td>Peer comparison</td>
+          </tr>
+          <tr>
+            <td><strong>Speaking practice</strong></td>
+            <td>AI partner</td>
+            <td>Sing-along</td>
+            <td>Guided shadowing</td>
+            <td>Live debates</td>
+          </tr>
+          <tr>
+            <td><strong>Grammar approach</strong></td>
+            <td>Color-coded patterns</td>
+            <td>Character metaphors</td>
+            <td>Pattern-first exposure</td>
+            <td>Scenario-based</td>
+          </tr>
+          <tr>
+            <td><strong>Vocabulary system</strong></td>
+            <td>SRS mini-stories</td>
+            <td>Item collection</td>
+            <td>Power Phrases</td>
+            <td>Synonym Ladders</td>
+          </tr>
+          <tr>
+            <td><strong>Motivation engine</strong></td>
+            <td>Confidence meter</td>
+            <td>Narrative unlocks</td>
+            <td>Streak + forgiveness</td>
+            <td>Precision score</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WAITLIST ========== -->
+<section class="waitlist" id="waitlist">
+  <div class="container">
+    <div class="waitlist__card">
+      <div class="waitlist__content">
+        <h2 class="waitlist__title">Be the first to break through</h2>
+        <p class="waitlist__desc">
+          Fluency Bridge launches in early access. Join the waitlist and we'll match you
+          to your learner profile on day one — with a personalized pathway ready to go.
+        </p>
+        <form class="waitlist__form" id="waitlistForm" onsubmit="handleWaitlist(event)">
+          <div class="waitlist__input-group">
+            <input type="email" class="waitlist__input" placeholder="your@email.com" required id="waitlistEmail">
+            <select class="waitlist__select" id="waitlistProfile">
+              <option value="">I'm a...</option>
+              <option value="beginner">Absolute Beginner</option>
+              <option value="young">Young Learner (Parent)</option>
+              <option value="adult">Adult Beginner</option>
+              <option value="intermediate">Intermediate Learner</option>
+            </select>
+            <button type="submit" class="btn btn--primary waitlist__submit">Join Waitlist</button>
+          </div>
+        </form>
+        <p class="waitlist__privacy">🔒 No spam. Early access invitations only.</p>
+        <div class="waitlist__success" id="waitlistSuccess" style="display:none;">
+          <span class="waitlist__success-icon">🎉</span>
+          <p>You're on the list! We'll be in touch when your pathway is ready.</p>
+        </div>
+      </div>
+      <div class="waitlist__visual">
+        <div class="waitlist__mockup">
+          <div class="waitlist__mockup-screen">
+            <div class="waitlist__mockup-dot"></div>
+            <div class="waitlist__mockup-line waitlist__mockup-line--1"></div>
+            <div class="waitlist__mockup-line waitlist__mockup-line--2"></div>
+            <div class="waitlist__mockup-line waitlist__mockup-line--3"></div>
+            <div class="waitlist__mockup-badge">Your path →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <span class="footer__logo">🌉 Fluency<span class="footer__logo-bold">Bridge</span></span>
+        <p class="footer__tagline">Built with learner research × AI analysis.<br>Every pathway is personal.</p>
+      </div>
+      <div class="footer__links">
+        <h4>Learner Paths</h4>
+        <a href="#beginners">Absolute Beginners</a>
+        <a href="#young">Young Learners</a>
+        <a href="#adults">Adult Beginners</a>
+        <a href="#intermediate">Intermediate</a>
+      </div>
+      <div class="footer__links">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Research</a>
+        <a href="#">Blog</a>
+        <a href="#">Careers</a>
+      </div>
+      <div class="footer__links">
+        <h4>Contact</h4>
+        <a href="mailto:hello@fluencybridge.app">hello@fluencybridge.app</a>
+        <a href="#">Twitter</a>
+        <a href="#">Discord</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>&copy; 2026 Fluency Bridge. Research-driven English learning.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

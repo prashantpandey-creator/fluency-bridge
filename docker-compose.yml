@@ -1,0 +1,42 @@
+# ── Fluency Bridge — Production Stack ─────────────────────────
+services:
+  # ── Flask Backend (API + Admin) ──────────────────────────────
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fluency_bridge_backend
+    restart: unless-stopped
+    environment:
+      - DB_PATH=/data/waitlist.db
+    volumes:
+      - fluency_data:/data
+    networks:
+      - fluency
+      - coolify
+
+  # ── nginx Frontend (static files + reverse proxy) ────────────
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    container_name: fluency_bridge_frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - fluency
+      - coolify
+
+volumes:
+  fluency_data:
+    driver: local
+
+networks:
+  fluency:
+    driver: bridge
+  # Connect to Coolify's Traefik for custom domains + HTTPS
+  coolify:
+    external: true

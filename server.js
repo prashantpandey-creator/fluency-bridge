@@ -19,27 +19,33 @@ app.use(express.json());
 const SQL = await initSqlJs();
 let db;
 
-if (existsSync(DB_PATH)) {
-  const buf = readFileSync(DB_PATH);
-  db = new SQL.Database(buf);
-} else {
-  db = new SQL.Database();
-}
+try {
+  if (existsSync(DB_PATH)) {
+    const buf = readFileSync(DB_PATH);
+    db = new SQL.Database(buf);
+    console.log(`DB loaded from ${DB_PATH} (${buf.length} bytes)`);
+  } else {
+    db = new SQL.Database();
+    console.log(`DB created in memory, will save to ${DB_PATH}`);
+  }
 
-db.run('PRAGMA journal_mode=WAL');
-db.run(`CREATE TABLE IF NOT EXISTS waitlist (
-  id         INTEGER PRIMARY KEY AUTOINCREMENT,
-  email      TEXT    NOT NULL UNIQUE,
-  profile    TEXT    NOT NULL,
-  created_at TEXT    NOT NULL
-)`);
+  db.run(`CREATE TABLE IF NOT EXISTS waitlist (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    email      TEXT    NOT NULL UNIQUE,
+    profile    TEXT    NOT NULL,
+    created_at TEXT    NOT NULL
+  )`);
 
-function saveDb() {
-  const data = db.export();
-  const buf = Buffer.from(data);
-  writeFileSync(DB_PATH, buf);
+  function saveDb() {
+    const data = db.export();
+    writeFileSync(DB_PATH, Buffer.from(data));
+  }
+  saveDb();
+  console.log('DB initialized and saved');
+} catch (err) {
+  console.error('DB init error:', err.message);
+  process.exit(1);
 }
-saveDb(); // ensure file exists on startup
 
 // ── API: Join waitlist ──────────────────────────────────────────────
 app.post('/api/waitlist', (req, res) => {
@@ -75,9 +81,7 @@ app.get('/api/waitlist', (_req, res) => {
   const stmt = db.prepare(
     'SELECT id, email, profile, created_at FROM waitlist ORDER BY created_at DESC'
   );
-  while (stmt.step()) {
-    rows.push(stmt.getAsObject());
-  }
+  while (stmt.step()) rows.push(stmt.getAsObject());
   stmt.free();
   res.json(rows);
 });
@@ -90,7 +94,6 @@ app.get('/admin', (_req, res) => {
   );
   while (stmt.step()) rows.push(stmt.getAsObject());
   stmt.free();
-
   const total = rows.length;
 
   const profStmt = db.prepare(
@@ -164,10 +167,18 @@ th{background:#faf9f7;font-weight:700;text-transform:uppercase;letter-spacing:.0
 });
 
 // ── Health check ────────────────────────────────────────────────────
-app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
+app.get('/api/health', (_req, res) => res.json({ status: 'ok', uptime: process.uptime() }));
 
 // ── Start ───────────────────────────────────────────────────────────
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`🌉 Fluency Bridge API running on :${PORT}`);
   console.log(`   DB: ${DB_PATH}`);
+});
+
+// Catch unhandled errors
+process.on('uncaughtException', (err) => {
+  console.error('UNCAUGHT:', err);
+});
+process.on('unhandledRejection', (err) => {
+  console.error('UNHANDLED REJECTION:', err);
 });

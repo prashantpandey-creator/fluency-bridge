@@ -1,4 +1,4 @@
-FROM node:22
+FROM node:22-alpine
 WORKDIR /app
 COPY package.json ./
 RUN npm install --omit=dev
@@ -7,4 +7,5 @@ RUN mkdir -p /data && chmod 777 /data
 ENV DB_PATH=/data/waitlist.json
 ENV PORT=8080
 EXPOSE 8080
-CMD ["node", "server.js"]
+# Capture ALL output to a file so we can see crash reason
+CMD sh -c 'node server.js > /tmp/stdout.log 2> /tmp/stderr.log; echo "EXIT:$?" >> /tmp/stdout.log'

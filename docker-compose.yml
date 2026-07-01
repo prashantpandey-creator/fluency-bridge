@@ -1,6 +1,5 @@
 # ── Fluency Bridge — Production Stack ─────────────────────────
 services:
-  # ── Node.js Backend (Express + SQLite) ───────────────────────
   backend:
     build:
       context: .
@@ -12,16 +11,9 @@ services:
       - PORT=8080
     volumes:
       - fluency_data:/data
-    healthcheck:
-      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8080/api/health"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
     networks:
       - fluency
 
-  # ── nginx Frontend (static files + reverse proxy) ────────────
   frontend:
     build:
       context: .
@@ -30,8 +22,6 @@ services:
     restart: unless-stopped
     ports:
       - "8088:80"
-    depends_on:
-      - backend
     networks:
       - fluency
       - coolify
@@ -43,6 +33,5 @@ volumes:
 networks:
   fluency:
     driver: bridge
-  # Connect to Coolify's Traefik for custom domains + HTTPS
   coolify:
     external: true

@@ -187,6 +187,11 @@ def admin():
 
 
 # ── Startup ───────────────────────────────────────────────────────────
+
+@APP.route("/api/health")
+def health():
+    return {"status": "ok", "uptime": "n/a"}
+
 if __name__ == "__main__":
     init_db()
     print("🌉 Fluency Bridge running at http://0.0.0.0:8080")

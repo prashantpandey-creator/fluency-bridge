@@ -1,6 +1,6 @@
 # ── Fluency Bridge — Production Stack ─────────────────────────
 services:
-  # ── Flask Backend (API + Admin) ──────────────────────────────
+  # ── Node.js Backend (Express + SQLite) ───────────────────────
   backend:
     build:
       context: .
@@ -9,11 +9,17 @@ services:
     restart: unless-stopped
     environment:
       - DB_PATH=/data/waitlist.db
+      - PORT=8080
     volumes:
       - fluency_data:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
     networks:
       - fluency
-      - coolify
 
   # ── nginx Frontend (static files + reverse proxy) ────────────
   frontend:

@@ -10,6 +10,19 @@ from flask import Flask, request, jsonify, send_from_directory, g
 APP = Flask(__name__, static_folder=".", static_url_path="")
 DB_PATH = os.environ.get("DB_PATH", os.path.join(os.path.dirname(os.path.abspath(__file__)), "waitlist.db"))
 
+# Ensure DB table exists on startup (critical for gunicorn)
+os.makedirs(os.path.dirname(DB_PATH) if os.path.dirname(DB_PATH) else ".", exist_ok=True)
+with sqlite3.connect(DB_PATH) as _db:
+    _db.execute("""
+        CREATE TABLE IF NOT EXISTS waitlist (
+            id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            email       TEXT    NOT NULL UNIQUE,
+            profile     TEXT    NOT NULL,
+            created_at  TEXT    NOT NULL
+        )
+    """)
+    _db.commit()
+
 
 def get_db():
     """Get or create a database connection for this request."""

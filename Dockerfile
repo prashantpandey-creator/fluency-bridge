@@ -1,14 +1,13 @@
 # ── Fluency Bridge — Node.js Backend ─────────────────────────────
-FROM node:22-alpine
+FROM node:22
 
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
-RUN npm ci --omit=dev 2>/dev/null || npm install --omit=dev
+COPY package.json ./
+RUN npm install --omit=dev
 
 COPY server.js .
 
-# Data directory for SQLite
 RUN mkdir -p /data && chmod 777 /data
 ENV DB_PATH=/data/waitlist.db
 ENV PORT=8080

@@ -1,5 +1,5 @@
-# ── Fluency Bridge — Node.js Backend ─────────────────────────────
-FROM node:22
+# ── Fluency Bridge — Node.js Backend (sql.js = zero native deps) ─
+FROM node:22-alpine
 
 WORKDIR /app
 

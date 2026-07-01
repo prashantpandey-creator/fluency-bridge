@@ -1,9 +1,10 @@
 /*
- * Fluency Bridge — API Server (Express + better-sqlite3)
- * Serves waitlist API + admin dashboard. Static files served by nginx.
+ * Fluency Bridge — API Server (Express + sql.js)
+ * Pure JS SQLite — no native build tools needed.
  */
 import express from 'express';
-import Database from 'better-sqlite3';
+import initSqlJs from 'sql.js';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -15,18 +16,30 @@ const app = express();
 app.use(express.json());
 
 // ── Database ────────────────────────────────────────────────────────
-const db = new Database(DB_PATH);
-db.pragma('journal_mode = WAL');
-db.pragma('foreign_keys = ON');
+const SQL = await initSqlJs();
+let db;
 
-db.exec(`
-  CREATE TABLE IF NOT EXISTS waitlist (
-    id         INTEGER PRIMARY KEY AUTOINCREMENT,
-    email      TEXT    NOT NULL UNIQUE,
-    profile    TEXT    NOT NULL,
-    created_at TEXT    NOT NULL
-  )
-`);
+if (existsSync(DB_PATH)) {
+  const buf = readFileSync(DB_PATH);
+  db = new SQL.Database(buf);
+} else {
+  db = new SQL.Database();
+}
+
+db.run('PRAGMA journal_mode=WAL');
+db.run(`CREATE TABLE IF NOT EXISTS waitlist (
+  id         INTEGER PRIMARY KEY AUTOINCREMENT,
+  email      TEXT    NOT NULL UNIQUE,
+  profile    TEXT    NOT NULL,
+  created_at TEXT    NOT NULL
+)`);
+
+function saveDb() {
+  const data = db.export();
+  const buf = Buffer.from(data);
+  writeFileSync(DB_PATH, buf);
+}
+saveDb(); // ensure file exists on startup
 
 // ── API: Join waitlist ──────────────────────────────────────────────
 app.post('/api/waitlist', (req, res) => {
@@ -41,12 +54,14 @@ app.post('/api/waitlist', (req, res) => {
   }
 
   try {
-    db.prepare(
-      'INSERT INTO waitlist (email, profile, created_at) VALUES (?, ?, ?)'
-    ).run(email, profile, new Date().toISOString());
+    db.run(
+      'INSERT INTO waitlist (email, profile, created_at) VALUES (?, ?, ?)',
+      [email, profile, new Date().toISOString()]
+    );
+    saveDb();
     return res.status(201).json({ ok: true, message: "You're on the list!" });
   } catch (err) {
-    if (err.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+    if (err.message && err.message.includes('UNIQUE constraint')) {
       return res.json({ ok: true, message: "You were already on the list — welcome back!" });
     }
     console.error('Waitlist insert error:', err);
@@ -56,21 +71,34 @@ app.post('/api/waitlist', (req, res) => {
 
 // ── API: List waitlist ──────────────────────────────────────────────
 app.get('/api/waitlist', (_req, res) => {
-  const rows = db.prepare(
+  const rows = [];
+  const stmt = db.prepare(
     'SELECT id, email, profile, created_at FROM waitlist ORDER BY created_at DESC'
-  ).all();
+  );
+  while (stmt.step()) {
+    rows.push(stmt.getAsObject());
+  }
+  stmt.free();
   res.json(rows);
 });
 
 // ── Admin dashboard ─────────────────────────────────────────────────
 app.get('/admin', (_req, res) => {
-  const rows = db.prepare(
+  const rows = [];
+  const stmt = db.prepare(
     'SELECT id, email, profile, created_at FROM waitlist ORDER BY created_at DESC'
-  ).all();
+  );
+  while (stmt.step()) rows.push(stmt.getAsObject());
+  stmt.free();
+
   const total = rows.length;
-  const byProfile = db.prepare(
+
+  const profStmt = db.prepare(
     'SELECT profile, COUNT(*) as cnt FROM waitlist GROUP BY profile ORDER BY cnt DESC'
-  ).all();
+  );
+  const byProfile = [];
+  while (profStmt.step()) byProfile.push(profStmt.getAsObject());
+  profStmt.free();
 
   const labels = {
     beginner: 'Absolute Beginner',

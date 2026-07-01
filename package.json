@@ -1,14 +1,12 @@
 {
   "name": "fluency-bridge",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Fluency Bridge — English learning platform with 4 learner profiles",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.21.0",
-    "sql.js": "^1.11.0"
+    "express": "^4.21.0"
   }
 }

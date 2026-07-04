@@ -1,49 +1,46 @@
-name: Deploy Fluency Bridge to Hetzner
-
+name: Deploy to Hetzner
 on:
   push:
     branches: [main]
   workflow_dispatch: {}
-
 jobs:
-  deploy:
+  deploy-fluency-bridge:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Deploy to Hetzner VPS
-        uses: appleboy/ssh-action@v1
+      - uses: appleboy/ssh-action@v1
         with:
           host: 204.168.176.229
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             set -e
-            echo "=== Fluency Bridge Deploy ==="
-
-            # Clone or update repo
-            if [ -d /root/fluency-bridge ]; then
-              cd /root/fluency-bridge
-              git fetch origin
-              git reset --hard origin/main
-              git clean -fd
-            else
-              cd /root
-              git clone https://github.com/prashantpandey-creator/fluency-bridge.git
-              cd fluency-bridge
-            fi
-
-            # Ensure coolify network exists
+            # ── Fluency Bridge ──
+            cd /root/fluency-bridge 2>/dev/null || { cd /root && git clone https://github.com/prashantpandey-creator/fluency-bridge.git && cd fluency-bridge; }
+            git fetch origin && git reset --hard origin/main
             docker network inspect coolify >/dev/null 2>&1 || docker network create coolify
+            docker compose build --no-cache && docker compose down --remove-orphans 2>/dev/null || true
+            docker compose up -d && echo "✅ Fluency Bridge deployed"
 
-            # Build and deploy
-            docker compose build --no-cache
-            docker compose down --remove-orphans 2>/dev/null || true
+  deploy-mila:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: appleboy/ssh-action@v1
+        with:
+          host: 204.168.176.229
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            set -e
+            # ── Мила ──
+            cd /root/mila 2>/dev/null || { cd /root && git clone https://github.com/prashantpandey-creator/mila-english.git && cd mila; }
+            git fetch origin && git reset --hard origin/main
+            docker network inspect coolify >/dev/null 2>&1 || docker network create coolify
+            docker compose build --no-cache && docker compose down --remove-orphans 2>/dev/null || true
             docker compose up -d
-            docker image prune -f
-
-            echo ""
-            echo "=== Deploy complete ==="
-            echo "Public:  http://204.168.176.229:8080"
-            echo "Admin:   http://204.168.176.229:8080/admin"
-            echo "API:     http://204.168.176.229:8080/api/waitlist"
+            cp mila.nginx.conf /etc/nginx/conf.d/mila.conf 2>/dev/null || true
+            nginx -t && nginx -s reload 2>/dev/null || true
+            echo "✅ Мила deployed"
+            curl -s localhost:3001/ | head -3
             docker compose ps

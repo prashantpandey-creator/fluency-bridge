@@ -2,6 +2,23 @@
    FLUENCY BRIDGE — Design System & Styles
    ============================================================ */
 
+/* ----- Language Switcher ----- */
+.nav__lang {
+  display: flex; gap: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 8px; padding: 3px; margin-left: 16px;
+}
+.nav__lang-btn {
+  background: none; border: none;
+  color: rgba(255,255,255,0.65);
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.05em; padding: 6px 10px;
+  border-radius: 6px; cursor: pointer;
+  transition: all 0.2s;
+}
+.nav__lang-btn:hover { color: #fff; }
+.nav__lang-btn--active { background: rgba(255,255,255,0.18); color: #fff; }
+
 /* ----- CSS Custom Properties ----- */
 :root {
   /* Colors */

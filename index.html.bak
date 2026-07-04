@@ -83,7 +83,7 @@
   <div class="container">
     <div class="intro__grid">
       <div class="intro__text">
-        <h2 class="section-title" data-i18n="intro_title">The learner-first approach</h2>
+        <h2 class="section-title">The learner-first approach</h2>
         <p>
           Most English courses treat everyone the same. We talked to real learners and an AI
           research partner to map exactly where each profile struggles — then designed
@@ -113,7 +113,7 @@
     <div class="category__header">
       <span class="category__number">01</span>
       <h2 class="category__title" data-i18n="cat_title">Absolute Beginners</h2>
-      <p class="category__subtitle" data-i18n="cat_beginners_subtitle">Starting from zero — complete cognitive overload</p>
+      <p class="category__subtitle">Starting from zero — complete cognitive overload</p>
     </div>
     <div class="category__grid">
       <div class="category__visual">
@@ -187,7 +187,7 @@
     <div class="category__header">
       <span class="category__number">02</span>
       <h2 class="category__title">Young Learners</h2>
-      <p class="category__subtitle" data-i18n="cat_young_subtitle">Children learn through play — structure kills their curiosity</p>
+      <p class="category__subtitle">Children learn through play — structure kills their curiosity</p>
     </div>
     <div class="category__grid category__grid--reverse">
       <div class="category__pain-points">
@@ -472,9 +472,9 @@
             <input type="email" class="waitlist__input" placeholder="your@email.com" required id="waitlistEmail">
             <select class="waitlist__select" id="waitlistProfile">
               <option value="">I'm a...</option>
-              <option value="beginner" data-i18n="waitlist_beginner">Absolute Beginner</option>
+              <option value="beginner">Absolute Beginner</option>
               <option value="young">Young Learner (Parent)</option>
-              <option value="adult" data-i18n="waitlist_adult">Adult Beginner</option>
+              <option value="adult">Adult Beginner</option>
               <option value="intermediate">Intermediate Learner</option>
             </select>
             <button type="submit" class="btn btn--primary waitlist__submit">Join Waitlist</button>
@@ -617,8 +617,8 @@ const I18N = {
     waitlist_adult: "Adult Beginner",
     waitlist_intermediate: "Intermediate — plateau breaker",
     waitlist_btn: "Get Early Access",
-    waitlist_success: "<span data-i18n='waitlist_success'>You're on the list! We'll be in touch.</span>",
-    footer_text: "<span data-i18n="footer_text">Built on research. Driven by results.</span>"
+    waitlist_success: "You're on the list! We'll be in touch.",
+    footer_text: "Built on research. Driven by results."
   },
   ru: {
     title: "Fluency Bridge — Овладей Английским По-Своему",
